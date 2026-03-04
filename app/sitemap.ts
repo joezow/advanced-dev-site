@@ -1,9 +1,9 @@
-import type { MetadataRoute } from "next";
+import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://advanceddevelopers.com.au",
+      url: "https://www.advanceddevelopers.com.au/",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
