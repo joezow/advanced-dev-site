@@ -239,7 +239,7 @@ export default function Home() {
                     type="button"
                     onClick={() =>
                       openLightbox(
-                        ["/hero.jpg", "/hero2.jpg", "/hero3.jpg", "/hero4.jpg"],
+                        ["/hero2.jpg", "/hero3.jpg", "/hero4.jpg", "/hero.jpg"],
                         0,
                         "architect-designed-residence"
                       )
@@ -248,7 +248,7 @@ export default function Home() {
                     aria-label="Open gallery: Architect-designed residence"
                   >
                     <img
-                      src="/hero.jpg"
+                      src="/hero2.jpg"
                       alt="Architect-designed residence"
                       className="h-full w-full object-cover transition duration-700 group-hover:scale-105 cursor-zoom-in"
                     />
@@ -316,8 +316,8 @@ export default function Home() {
                       [
                         "/interior.jpg",
                         "/interior2.jpg",
-                        "/interior3.jpg",
                         "/interior4.jpg",
+                        "/interior3.jpg",
                       ],
                       0,
                       "interior-detailing"
@@ -570,17 +570,20 @@ export default function Home() {
             )}
           </div>
         </section>
-
-        <footer className="py-10">
-          <div className="mx-auto max-w-6xl px-6 text-sm text-slate-600 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-            <div>
-              ©{" "}
-              <span suppressHydrationWarning>{new Date().getFullYear()}</span>{" "}
-              Advanced Developers
-            </div>
-            <div />
-          </div>
-        </footer>
+<footer className="py-10">
+  <div className="mx-auto max-w-6xl px-6 text-sm text-slate-600 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+    <div>
+      ©{" "}
+      <span suppressHydrationWarning>{new Date().getFullYear()}</span>{" "}
+      Advanced Developers
+    </div>
+    <div className="flex flex-wrap gap-x-5 gap-y-2 text-slate-500">
+      <a href="/custom-home-builder-sydney" className="hover:text-slate-900 transition">Custom Homes</a>
+      <a href="/duplex-builders-sydney" className="hover:text-slate-900 transition">Duplex Projects</a>
+      <a href="/townhouse-developments-sydney" className="hover:text-slate-900 transition">Townhouse Developments</a>
+    </div>
+  </div>
+</footer>
 
         {lightboxOpen && (
           <div
