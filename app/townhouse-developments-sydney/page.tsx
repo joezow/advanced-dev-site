@@ -1,22 +1,46 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Header from "../components/Header";
 
 export const metadata: Metadata = {
   title: "Townhouse Developments Sydney | Advanced Developers",
   description:
     "Licensed NSW builder delivering townhouse and multi-dwelling residential developments across Sydney and the Central Coast.",
+  alternates: {
+    canonical: "https://www.advanceddevelopers.com.au/townhouse-developments-sydney",
+  },
 };
 
 export default function TownhouseDevelopmentsPage() {
   return (
     <main className="bg-white text-slate-900">
+      <Script
+        id="ld-json-townhouse"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Townhouse Developments Sydney",
+            url: "https://www.advanceddevelopers.com.au/townhouse-developments-sydney",
+            description: "Licensed NSW builder delivering townhouse and multi-dwelling residential developments across Sydney and the Central Coast.",
+            provider: {
+              "@type": "ConstructionCompany",
+              name: "Advanced Developers",
+              url: "https://www.advanceddevelopers.com.au",
+            },
+            areaServed: ["Sydney", "Central Coast NSW"],
+          }),
+        }}
+      />
       <Header />
 
       {/* Hero */}
       <section className="relative min-h-[72vh] overflow-hidden text-white">
         <div className="absolute inset-0">
           <img
-            src="/townhouse.jpg"
+            src="/townhouse.jpeg"
             alt="Townhouse and multi-dwelling residential development"
             className="h-full w-full object-cover"
           />
@@ -127,7 +151,7 @@ export default function TownhouseDevelopmentsPage() {
         <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-2 lg:items-start">
           <div className="rounded-3xl overflow-hidden border border-slate-200 bg-white">
             <img
-              src="/townhouse2.jpg"
+              src="/townhouse2.jpeg"
               alt="Residential development construction"
               className="h-full w-full object-cover"
             />

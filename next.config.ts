@@ -4,9 +4,48 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/:path*",
-        has: [{ type: "host", value: "advanceddevelopers.com.au" }],
-        destination: "https://www.advanceddevelopers.com.au/:path*",
+        source: "/about",
+        destination: "/#about",
+        permanent: true,
+      },
+      {
+        source: "/about/",
+        destination: "/#about",
+        permanent: true,
+      },
+      {
+        source: "/contact-2",
+        destination: "/#contact",
+        permanent: true,
+      },
+      {
+        source: "/projects",
+        destination: "/#projects",
+        permanent: true,
+      },
+      {
+        source: "/townhouse-developments",
+        destination: "/townhouse-developments-sydney",
+        permanent: true,
+      },
+      {
+        source: "/contact",
+        destination: "/#contact",
+        permanent: true,
+      },
+      {
+        source: "/contact/",
+        destination: "/#contact",
+        permanent: true,
+      },
+      {
+        source: "/form/simple-contact-form",
+        destination: "/#contact",
+        permanent: true,
+      },
+      {
+        source: "/form/simple-contact-form/",
+        destination: "/#contact",
         permanent: true,
       },
     ];

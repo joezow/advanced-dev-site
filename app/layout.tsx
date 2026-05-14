@@ -9,7 +9,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://advanceddevelopers.com.au"),
+  metadataBase: new URL("https://www.advanceddevelopers.com.au"),
+  alternates: {
+    canonical: "https://www.advanceddevelopers.com.au",
+  },
   verification: {
   google: "gF2oWiym8GaKAnqi",
 },
@@ -30,11 +33,11 @@ export const metadata: Metadata = {
     title: "Advanced Developers",
     description:
       "Residential projects developed and delivered across Sydney and the Central Coast.",
-    url: "https://advanceddevelopers.com.au",
+    url: "https://www.advanceddevelopers.com.au",
     siteName: "Advanced Developers",
     images: [
       {
-        url: "https://advanceddevelopers.com.au/hero.jpg",
+        url: "https://www.advanceddevelopers.com.au/hero.jpg",
         width: 1200,
         height: 630,
       },
@@ -47,12 +50,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Advanced Developers",
     description: "Architect-designed homes, duplexes and multi-dwelling projects.",
-    images: ["https://advanceddevelopers.com.au/hero.jpg"],
+    images: ["https://www.advanceddevelopers.com.au/hero.jpg"],
   },
 
   icons: {
     icon: "/favicon.ico",
-    apple: "/icon.png",
+    apple: "/logo.png",
   },
 };
 

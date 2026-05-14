@@ -76,8 +76,9 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "ConstructionCompany",
             name: "Advanced Developers",
-            url: "https://advanceddevelopers.com.au",
+            url: "https://www.advanceddevelopers.com.au",
             telephone: "+61411824803",
+            image: "https://www.advanceddevelopers.com.au/hero.jpg",
             areaServed: ["Sydney", "Central Coast NSW"],
             address: {
               "@type": "PostalAddress",
@@ -86,6 +87,36 @@ export default function Home() {
             },
             description:
               "Licensed builder delivering architect-designed homes, duplexes and multi-dwelling developments.",
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: "Building Services",
+              itemListElement: [
+                {
+                  "@type": "Offer",
+                  itemOffered: {
+                    "@type": "Service",
+                    name: "Custom Home Builder Sydney",
+                    url: "https://www.advanceddevelopers.com.au/custom-home-builder-sydney",
+                  },
+                },
+                {
+                  "@type": "Offer",
+                  itemOffered: {
+                    "@type": "Service",
+                    name: "Duplex Builders Sydney",
+                    url: "https://www.advanceddevelopers.com.au/duplex-builders-sydney",
+                  },
+                },
+                {
+                  "@type": "Offer",
+                  itemOffered: {
+                    "@type": "Service",
+                    name: "Townhouse Developments Sydney",
+                    url: "https://www.advanceddevelopers.com.au/townhouse-developments-sydney",
+                  },
+                },
+              ],
+            },
           }),
         }}
       />
@@ -264,6 +295,7 @@ export default function Home() {
                     Architect-designed custom home delivered with structured
                     scope control and disciplined site execution.
                   </p>
+                  <a href="/custom-home-builder-sydney" className="mt-3 inline-block text-sm font-medium text-slate-900 underline underline-offset-2 hover:text-slate-600 transition">Custom home builder Sydney →</a>
                 </div>
               </div>
 
@@ -302,6 +334,7 @@ export default function Home() {
                     Dual-occupancy development structured from feasibility
                     through to completion.
                   </p>
+                  <a href="/duplex-builders-sydney" className="mt-3 inline-block text-sm font-medium text-slate-900 underline underline-offset-2 hover:text-slate-600 transition">Duplex builders Sydney →</a>
                 </div>
               </div>
             </div>
@@ -357,9 +390,11 @@ export default function Home() {
               </h2>
 
               <p className="mt-4 text-slate-700 leading-relaxed text-lg">
-                Advanced Developers is a licensed NSW builder delivering
-                architect-designed homes, duplexes and structured multi-dwelling
-                developments across Sydney and the Central Coast.
+                Advanced Developers is a licensed NSW builder delivering{" "}
+                <a href="/custom-home-builder-sydney" className="underline underline-offset-2 hover:text-slate-900 transition">architect-designed homes</a>,{" "}
+                <a href="/duplex-builders-sydney" className="underline underline-offset-2 hover:text-slate-900 transition">duplexes</a> and{" "}
+                <a href="/townhouse-developments-sydney" className="underline underline-offset-2 hover:text-slate-900 transition">structured multi-dwelling developments</a>{" "}
+                across Sydney and the Central Coast.
                 <br />
                 <br />
                 We operate with a builder’s discipline and a developer’s
@@ -572,10 +607,21 @@ export default function Home() {
         </section>
 <footer className="py-10">
   <div className="mx-auto max-w-6xl px-6 text-sm text-slate-600 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-    <div>
-      ©{" "}
-      <span suppressHydrationWarning>{new Date().getFullYear()}</span>{" "}
-      Advanced Developers
+    <div className="flex items-center gap-4">
+      <span>
+        ©{" "}
+        <span suppressHydrationWarning>{new Date().getFullYear()}</span>{" "}
+        Advanced Developers
+      </span>
+      <span className="text-slate-300">|</span>
+      <a
+        href="https://www.houzz.com.au/pro/webuser-924310412"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:text-slate-900 transition"
+      >
+        Find us on Houzz
+      </a>
     </div>
     <div className="flex flex-wrap gap-x-5 gap-y-2 text-slate-500">
       <a href="/custom-home-builder-sydney" className="hover:text-slate-900 transition">Custom Homes</a>

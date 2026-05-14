@@ -1,15 +1,39 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Header from "../components/Header";
 
 export const metadata: Metadata = {
   title: "Duplex Builders Sydney | Advanced Developers",
   description:
     "Licensed NSW builder delivering duplex and dual occupancy projects across Sydney and the Central Coast.",
+  alternates: {
+    canonical: "https://www.advanceddevelopers.com.au/duplex-builders-sydney",
+  },
 };
 
 export default function DuplexBuildersSydneyPage() {
   return (
     <main className="bg-white text-slate-900">
+      <Script
+        id="ld-json-duplex"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Duplex Builders Sydney",
+            url: "https://www.advanceddevelopers.com.au/duplex-builders-sydney",
+            description: "Licensed NSW builder delivering duplex and dual occupancy projects across Sydney and the Central Coast.",
+            provider: {
+              "@type": "ConstructionCompany",
+              name: "Advanced Developers",
+              url: "https://www.advanceddevelopers.com.au",
+            },
+            areaServed: ["Sydney", "Central Coast NSW"],
+          }),
+        }}
+      />
       <Header />
 
       {/* Hero */}

@@ -1,15 +1,39 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Header from "../components/Header";
 
 export const metadata: Metadata = {
   title: "Custom Home Builder Sydney | Advanced Developers",
   description:
     "Licensed NSW builder delivering architect-designed custom homes across Sydney and the Central Coast.",
+  alternates: {
+    canonical: "https://www.advanceddevelopers.com.au/custom-home-builder-sydney",
+  },
 };
 
 export default function CustomHomeBuilderSydneyPage() {
   return (
     <main className="bg-white text-slate-900">
+      <Script
+        id="ld-json-custom-home"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Custom Home Builder Sydney",
+            url: "https://www.advanceddevelopers.com.au/custom-home-builder-sydney",
+            description: "Licensed NSW builder delivering architect-designed custom homes across Sydney and the Central Coast.",
+            provider: {
+              "@type": "ConstructionCompany",
+              name: "Advanced Developers",
+              url: "https://www.advanceddevelopers.com.au",
+            },
+            areaServed: ["Sydney", "Central Coast NSW"],
+          }),
+        }}
+      />
       <Header />
 
       {/* Hero */}
