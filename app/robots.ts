@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://advanceddevelopers.com.au/sitemap.xml",
+    sitemap: "https://www.advanceddevelopers.com.au/sitemap.xml",
   };
 }

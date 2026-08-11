@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -67,7 +68,7 @@ export default function RootLayout({
       <head>
         <meta name="format-detection" content="telephone=no" />
       </head>
-      <body className={`${inter.variable} font-sans antialiased`}>{children}</body>
+      <body className={`${poppins.variable} font-sans antialiased`}>{children}</body>
     </html>
   );
 }

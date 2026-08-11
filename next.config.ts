@@ -4,18 +4,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/about",
-        destination: "/#about",
-        permanent: true,
-      },
-      {
-        source: "/about/",
-        destination: "/#about",
-        permanent: true,
-      },
-      {
         source: "/contact-2",
-        destination: "/#contact",
+        destination: "/contact",
         permanent: true,
       },
       {
@@ -29,23 +19,13 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/contact",
-        destination: "/#contact",
-        permanent: true,
-      },
-      {
-        source: "/contact/",
-        destination: "/#contact",
-        permanent: true,
-      },
-      {
         source: "/form/simple-contact-form",
-        destination: "/#contact",
+        destination: "/contact",
         permanent: true,
       },
       {
         source: "/form/simple-contact-form/",
-        destination: "/#contact",
+        destination: "/contact",
         permanent: true,
       },
     ];

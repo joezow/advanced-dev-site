@@ -1,166 +1,185 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
+export default function Header({
+  forceScrolled = false,
+  theme = "dark",
+}: { forceScrolled?: boolean; theme?: "dark" | "light" } = {}) {
+  const light = theme === "light";
+  const [scrolled, setScrolled] = useState(forceScrolled);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
-  // Scroll -> toggle glass/white state
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
-    handleScroll(); // set correct state on load/refresh
+    if (forceScrolled) return;
+    const handleScroll = () => setScrolled(window.scrollY > window.innerHeight - 550);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, [forceScrolled]);
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]");
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActiveSection(e.target.id); }),
+      { threshold: 0.35 }
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
   }, []);
 
-  // Stop background scroll when menu is open
   useEffect(() => {
     const prev = document.body.style.overflow;
     if (menuOpen) document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
+    return () => { document.body.style.overflow = prev; };
   }, [menuOpen]);
-
-  const linkCls = `transition ${scrolled ? "hover:text-slate-900" : "hover:text-white"}`;
 
   return (
     <>
-      {/* Glass header */}
-      <header className="fixed top-0 left-0 w-full z-50 flex justify-center pt-3 md:pt-6">
-        <div
-          className={`w-[95%] max-w-6xl rounded-2xl px-4 md:px-7 py-2 md:py-3 flex items-center justify-between gap-3 transition-all duration-300 ${
-            scrolled
-              ? "bg-white/90 backdrop-blur-xl shadow-md border border-slate-200"
-              : "bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg"
-          }`}
+      <header
+        className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 md:px-10 lg:px-14 transition-all duration-500 ${
+          scrolled
+            ? light
+              ? "bg-white/90 backdrop-blur-md py-3 border-b border-neutral-200"
+              : "bg-neutral-950/90 backdrop-blur-md py-3"
+            : "bg-transparent py-8"
+        }`}
+      >
+        {/* Logo + brand */}
+        <Link href="/" className="flex items-center gap-4">
+          <Image
+            src="/logo.png"
+            alt="Advanced Developers"
+            width={500}
+            height={500}
+            priority
+            className={`w-auto transition-all duration-500 ${scrolled ? "h-9" : "h-24"}`}
+          />
+          <span
+            className={`font-semibold tracking-[0.2em] hidden sm:block transition-all duration-500 ${
+              scrolled && light ? "text-black" : "text-white"
+            } ${scrolled ? "text-sm" : "text-3xl"}`}
+          >
+            ADVANCED DEVELOPERS
+          </span>
+        </Link>
+
+        {/* + button */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          className={`flex items-center justify-center focus:outline-none transition-all duration-500 ${
+            scrolled && light ? "text-black" : "text-white"
+          } ${scrolled ? "w-10 h-10" : "w-16 h-16"}`}
         >
-          {/* Brand */}
-          <a href="/" className="flex items-center gap-3 min-w-0">
-            <img src="/logo.png" alt="Advanced Developers" className="h-9 md:h-12 w-auto shrink-0" />
-            <div
-              className={`font-sans font-semibold tracking-[0.18em] truncate text-[13px] sm:text-base md:text-xl max-w-[55vw] sm:max-w-none ${
-                scrolled ? "text-slate-900" : "text-white"
-              }`}
-            >
-              ADVANCED DEVELOPERS
-            </div>
-          </a>
-
-          {/* Desktop nav */}
-          <nav
-            className={`hidden md:flex items-center gap-10 text-base font-medium tracking-wide ${
-              scrolled ? "text-slate-700" : "text-white/90"
-            }`}
+          <span
+            className={`block font-semibold leading-none transition-all duration-500 ${
+              menuOpen ? "rotate-45" : ""
+            } ${scrolled ? "text-[1.75rem]" : "text-[3rem]"}`}
           >
-            <a href="#approach" className={linkCls}>
-              How We Deliver
-            </a>
-            <a href="#projects" className={linkCls}>
-              Projects
-            </a>
-            <a href="#about" className={linkCls}>
-              About
-            </a>
-          </nav>
-
-          {/* Desktop CTA */}
-          <a
-            href="#contact"
-            className={`hidden md:inline-flex items-center justify-center whitespace-nowrap rounded-lg px-6 py-2 text-[15px] font-semibold transition ${
-              scrolled
-                ? "bg-slate-900 text-white hover:bg-slate-800"
-                : "bg-white text-black hover:bg-white/90"
-            }`}
-          >
-            Discuss your project
-          </a>
-
-          {/* Mobile burger */}
-          <button
-            type="button"
-            className={`md:hidden inline-flex items-center justify-center rounded-lg px-3 py-2 transition ${
-              scrolled ? "text-slate-900" : "text-white"
-            }`}
-            aria-label="Open menu"
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen(true)}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M4 7h16M4 12h16M4 17h16"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
-        </div>
+            +
+          </span>
+        </button>
       </header>
 
-      {/* Mobile menu overlay */}
-      {menuOpen && (
+      {/* Backdrop */}
+      <div
+        className={`fixed inset-0 z-[998] bg-black/50 transition-opacity duration-500 ${
+          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setMenuOpen(false)}
+      />
+
+      {/* Side panel */}
+      <div
+        className={`fixed top-0 right-0 bottom-0 z-[999] flex w-[min(85vw,420px)] flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          light ? "bg-white" : "bg-neutral-950"
+        } ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation"
+      >
         <div
-          className="fixed inset-0 z-[999] bg-black/40 backdrop-blur-sm md:hidden"
-          onMouseDown={(e) => {
-            if (e.target === e.currentTarget) setMenuOpen(false);
-          }}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Menu"
+          className={`h-[5.25rem] px-8 flex items-center justify-between border-b ${
+            light ? "border-neutral-200" : "border-white/10"
+          }`}
         >
-          <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl rounded-2xl bg-white shadow-xl border border-slate-200 overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3">
-              <div className="font-sans font-semibold tracking-[0.18em] text-slate-900 text-sm">
-                MENU
-              </div>
-              <button
-                type="button"
-                className="rounded-lg px-3 py-2 text-slate-900"
-                aria-label="Close menu"
-                onClick={() => setMenuOpen(false)}
-              >
-                ✕
-              </button>
-            </div>
+          <span
+            className={`text-[10px] tracking-[0.25em] uppercase ${
+              light ? "text-neutral-400" : "text-white/30"
+            }`}
+          >
+            Menu
+          </span>
+          <button
+            onClick={() => setMenuOpen(false)}
+            className={`text-[10px] tracking-[0.25em] transition uppercase ${
+              light ? "text-neutral-400 hover:text-black" : "text-white/40 hover:text-white"
+            }`}
+          >
+            Close
+          </button>
+        </div>
 
-            <div className="px-4 pb-4">
-              <div className="grid gap-2">
-                <a
-                  href="#approach"
-                  className="rounded-xl border border-slate-200 px-4 py-3 text-slate-900 font-medium"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  How We Deliver
-                </a>
-                <a
-                  href="#projects"
-                  className="rounded-xl border border-slate-200 px-4 py-3 text-slate-900 font-medium"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Projects
-                </a>
-                <a
-                  href="#about"
-                  className="rounded-xl border border-slate-200 px-4 py-3 text-slate-900 font-medium"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  About
-                </a>
+        <nav className="flex flex-col px-8 pt-10">
+          {[
+            { href: "/portfolio", id: "portfolio", label: "Portfolio" },
+            { href: "/about", id: "about", label: "About" },
+            { href: "/approach", id: "approach", label: "Approach" },
+            { href: "/contact", id: "contact", label: "Contact" },
+          ].map((link) => (
+            <a
+              key={link.id}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className={`text-[2.6rem] font-semibold leading-tight py-3 border-b transition duration-200 ${
+                light ? "border-neutral-200" : "border-white/10"
+              } ${
+                activeSection === link.id
+                  ? light
+                    ? "text-black"
+                    : "text-white"
+                  : light
+                    ? "text-neutral-400 hover:text-black"
+                    : "text-white/55 hover:text-white"
+              }`}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
 
-                <a
-                  href="#contact"
-                  className="mt-2 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-white font-semibold"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Discuss your project
-                </a>
-              </div>
-            </div>
+        <div
+          className={`mt-auto px-8 py-10 space-y-3 border-t ${
+            light ? "border-neutral-200" : "border-white/10"
+          }`}
+        >
+          <a
+            href="tel:0411824803"
+            className={`block text-sm tracking-wide transition ${
+              light ? "text-neutral-700 hover:text-black" : "text-white/70 hover:text-white"
+            }`}
+          >
+            0411 824 803
+          </a>
+          <a
+            href="mailto:info@advanceddevelopers.com.au"
+            className={`block text-sm transition ${
+              light ? "text-neutral-500 hover:text-black" : "text-white/45 hover:text-white"
+            }`}
+          >
+            info@advanceddevelopers.com.au
+          </a>
+          <div className={`text-xs pt-2 ${light ? "text-neutral-400" : "text-white/25"}`}>
+            Sydney & Central Coast, NSW
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }

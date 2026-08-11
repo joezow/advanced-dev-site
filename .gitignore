@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw source photo dumps — not served directly, curated copies live in public/portfolio/
+/public/Warrawee/
+/public/Wahroonga/
+/public/Duplex/
+/public/Hamlyn Terrace/
+_stash/
